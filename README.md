@@ -114,4 +114,4 @@ MIT
 
 **Nikita Poliakov** — Automation & Instrumentation Engineer  
 2+ years delivering end-to-end control systems for food and meat-processing equipment.  
-LinkedIn | work.nikita@bk.ru
+[LinkedIn](https://www.linkedin.com/in/nikita-poliakov-62a3003b9) | work.nikita@bk.ru
