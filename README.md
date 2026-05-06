@@ -1,15 +1,16 @@
-# FB_OptionActivation — CoDeSys ST
+# FB_CodeActivation — CoDeSys ST
 
-Function Block for activating machine options via numeric code input on HMI (e.g. EasyBuilder / Weintek).
+Universal Function Block for toggling outputs via numeric code input on HMI (e.g. EasyBuilder / Weintek).  
+Use it to activate options, modes, access levels, or any feature that requires a numeric unlock code.
 
 ---
 
 ## How it works
 
-The operator enters a numeric activation code on the HMI screen and presses **Confirm**.  
-- If the code matches one of the configured option codes → the option toggles ON/OFF and a **success notification** appears for 3 seconds.  
-- If the code does not match any option → an **error notification** appears for 3 seconds.  
-- Entering the correct code a second time **disables** the option (toggle behavior).
+The operator enters a numeric code on the HMI screen and presses **Confirm**.  
+- If the code matches one of the configured codes → the corresponding output toggles ON/OFF and a **success notification** appears for 3 seconds.  
+- If the code does not match any entry → an **error notification** appears for 3 seconds.  
+- Entering the correct code a second time **disables** the output (toggle behavior).
 
 ---
 
@@ -23,15 +24,15 @@ The operator enters a numeric activation code on the HMI screen and presses **Co
 ### VAR_IN_OUT
 | Variable | Type | Description |
 |----------|------|-------------|
-| `rInputCode` | `REAL` | Entered activation code — automatically reset to `0` after a match |
+| `rInputCode` | `REAL` | Entered code — automatically reset to `0` after a match |
 
 ### VAR_OUTPUT
 | Variable | Type | Description |
 |----------|------|-------------|
-| `xOption1` | `BOOL` | Option 1 active |
-| `xOption2` | `BOOL` | Option 2 active |
-| `xOption3` | `BOOL` | Option 3 active |
-| `xOption4` | `BOOL` | Option 4 active |
+| `xOutput1` | `BOOL` | Output 1 active |
+| `xOutput2` | `BOOL` | Output 2 active |
+| `xOutput3` | `BOOL` | Output 3 active |
+| `xOutput4` | `BOOL` | Output 4 active |
 | `xCodeOk` | `BOOL` | Notification: correct code entered (high for 3 s) |
 | `xCodeError` | `BOOL` | Notification: wrong code entered (high for 3 s) |
 
@@ -42,10 +43,10 @@ The operator enters a numeric activation code on the HMI screen and presses **Co
 Activation codes are defined inside the FB as `VAR`:
 
 ```pascal
-rCode1 : REAL := 2134;   // Option 1
-rCode2 : REAL := 3421;   // Option 2
-rCode3 : REAL := 2314;   // Option 3
-rCode4 : REAL := 2341;   // Option 4
+rCode1 : REAL := 2134;   // Output 1
+rCode2 : REAL := 3421;   // Output 2
+rCode3 : REAL := 2314;   // Output 3
+rCode4 : REAL := 2341;   // Output 4
 ```
 
 Change these values to your own codes before building.
@@ -59,26 +60,26 @@ Change these values to your own codes before building.
 VAR_GLOBAL
     gConfirm    : BOOL;
     gInputCode  : REAL;
-    gOpt1       : BOOL;
-    gOpt2       : BOOL;
-    gOpt3       : BOOL;
-    gOpt4       : BOOL;
+    gOut1       : BOOL;
+    gOut2       : BOOL;
+    gOut3       : BOOL;
+    gOut4       : BOOL;
     gCodeOk     : BOOL;
     gCodeError  : BOOL;
 END_VAR
 
 // PLC_PRG
 VAR
-    fbOptions : FB_OptionActivation;
+    fbCode : FB_CodeActivation;
 END_VAR
 
-fbOptions(
+fbCode(
     xConfirm   := gConfirm,
     rInputCode := gInputCode,
-    xOption1   => gOpt1,
-    xOption2   => gOpt2,
-    xOption3   => gOpt3,
-    xOption4   => gOpt4,
+    xOutput1   => gOut1,
+    xOutput2   => gOut2,
+    xOutput3   => gOut3,
+    xOutput4   => gOut4,
     xCodeOk    => gCodeOk,
     xCodeError => gCodeError
 );
@@ -90,9 +91,9 @@ fbOptions(
 
 | Code entries | State |
 |---|---|
-| 0 times | Option OFF |
-| 1 time | Option ON |
-| 2 times | Option OFF (reset) |
+| 0 times | Output OFF |
+| 1 time | Output ON |
+| 2 times | Output OFF (reset) |
 
 ---
 
@@ -104,14 +105,14 @@ fbOptions(
 
 ---
 
-## License
-
-MIT
-
----
-
 ## Author
 
 **Nikita Poliakov** — Automation & Instrumentation Engineer  
 2+ years delivering end-to-end control systems for food and meat-processing equipment.  
 [LinkedIn](https://www.linkedin.com/in/nikita-poliakov-62a3003b9) | work.nikita@bk.ru
+
+---
+
+## License
+
+MIT
