@@ -107,3 +107,11 @@ fbOptions(
 ## License
 
 MIT
+
+---
+
+## Author
+
+**Nikita Poliakov** — Automation & Instrumentation Engineer  
+2+ years delivering end-to-end control systems for food and meat-processing equipment.  
+LinkedIn | work.nikita@bk.ru
